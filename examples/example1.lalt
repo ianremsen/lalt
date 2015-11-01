@@ -1,0 +1,26 @@
+#lang lalt
+
+(on-keypress "^j"            ; ^j::
+	(send "My First Script") ;     Send, My First Script
+)                            ; Return
+
+(on-keystring #("f" "t" "w") "Free the whales") ; ::ftw::Free the whales
+
+(on-keypress "esc"        ; esc::
+	(msgbox "Escape!!!!") ;     MsgBox Escape!!!!
+)                         ; Return
+
+(on-keypress "^j"
+	(msgbox "Wow!")
+	(msgbox "this is")
+	(run "Notepad.exe")
+	(win-activate "Untitled - Notepad")
+	(win-wait-active "Untitled - Notepad"
+		(send (lines 7 "{!}{enter}"))
+		(send-input "inside the ctrl{+}j hotkey")
+	)
+)
+
+(on-keypress (both "Numpad0" "Numpad1")
+	(msgbox "You pressed Numpad1 while holding down Numpad0.")
+)
