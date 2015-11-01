@@ -6,7 +6,7 @@ Huge credit to http://www.buildyourownlisp.com which bootstrapped this project a
 Download
 --------
 
-Snatch the prebuilt binaries (here)[https://github.com/ianremsen/lalt/releases/new].
+Snatch the prebuilt binaries [here](https://github.com/ianremsen/lalt/releases/new).
 
 Compiling
 ---------
