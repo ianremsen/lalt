@@ -3,13 +3,13 @@ Lalt is a lisplike to [AutoHotKey script](http://ahkscript.org) transpiler.
 
 Huge credit to http://www.buildyourownlisp.com which bootstrapped this project and supplies a significant part of the codebase (MPC).
 
-Inspiration goes to [Tom Scott](http://tomscott.com), who [touched on the weaknesses of AHK's scripting language in this excellent 
+Inspiration goes to [Tom Scott](http://tomscott.com), who touched on the weaknesses of AutoHotKey's scripting language in [this excellent 
 video](https://www.youtube.com/watch?v=lIFE7h3m40U).
 
 Overview
 --------
 
-Let's face it. If you've used AutoHotKey, you know its capabilities are stellar, but its scripting language is AWFUL.
+Let's face it. If you've used AutoHotKey, you know its capabilities are stellar, but its scripting language is awful.
 
 Lalt will allow you to write this:
 
