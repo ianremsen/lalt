@@ -3,7 +3,7 @@ Lalt is a lisplike to [AutoHotKey script](http://ahkscript.org) transpiler.
 
 Huge credit to http://www.buildyourownlisp.com which bootstrapped this project and supplies a significant part of the codebase.
 
-Inspiration goes to [Tom Scott](https://www.youtube.com/user/enyay/), who [touched on the weaknesses of AHK's scripting language in this excellet video](https://www.youtube.com/watch?v=lIFE7h3m40U).
+Inspiration goes to [Tom Scott](http://tomscott.com), who [touched on the weaknesses of AHK's scripting language in this excellet video](https://www.youtube.com/watch?v=lIFE7h3m40U).
 
 Overview
 --------
