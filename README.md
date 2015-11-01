@@ -19,10 +19,9 @@ Lalt will allow you to write this:
 	(msgbox "this is")
 	(run "Notepad.exe")
 	(win-activate "Untitled - Notepad")
-	(win-wait-active "Untitled - Notepad"
-		(send (lines 7 "{!}{enter}"))
-		(send-input "inside the ctrl{+}j hotkey")
-	)
+	(win-wait-active "Untitled - Notepad")
+	(send (lines 7 "{!}{enter}"))
+	(send-input "inside the ctrl{+}j hotkey")
 )
 ```
 
