@@ -5,10 +5,10 @@
 #include "lval.h"
 
 int main(int argc, char** argv) {
-    if (strcmp(argv[1], "repl") == 0) {
+    if (argv[1] != NULL && strcmp(argv[1], "repl") == 0) {
         lalt_repl();
     } else {
-        break;
+        exit(0);
     }
 
     return 0;

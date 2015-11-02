@@ -1,11 +1,11 @@
-//
+//////////////////////////////////////////////
 // mpc - Micro Parser Combinator library for C
 //
 // https://github.com/orangeduck/mpc
 //
 // Daniel Holden - contact@daniel-holden.com
 // Licensed under BSD3
-*/
+//////////////////////////////////////////////
 
 #ifndef mpc_h
 #define mpc_h
@@ -35,7 +35,7 @@ typedef struct {
     int expected_num;
     char* filename;
     char* failure;
-    char// expected;
+    char** expected;
     char recieved;
 } mpc_err_t;
 
@@ -70,7 +70,7 @@ typedef mpc_val_t*(* mpc_ctor_t)(void);
 
 typedef mpc_val_t*(* mpc_apply_t)(mpc_val_t*);
 typedef mpc_val_t*(* mpc_apply_to_t)(mpc_val_t*, void*);
-typedef mpc_val_t*(* mpc_fold_t)(int, mpc_val_t//);
+typedef mpc_val_t*(* mpc_fold_t)(int, mpc_val_t**);
 
 ////////////////////
 // Building a Parser
@@ -222,17 +222,17 @@ mpc_val_t* mpcf_unescape_regex(mpc_val_t* x);
 mpc_val_t* mpcf_unescape_string_raw(mpc_val_t* x);
 mpc_val_t* mpcf_unescape_char_raw(mpc_val_t* x);
 
-mpc_val_t* mpcf_null(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_fst(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_snd(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_trd(int n, mpc_val_t// xs);
+mpc_val_t* mpcf_null(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_fst(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_snd(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_trd(int n, mpc_val_t** xs);
 
-mpc_val_t* mpcf_fst_free(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_snd_free(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_trd_free(int n, mpc_val_t// xs);
+mpc_val_t* mpcf_fst_free(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_snd_free(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_trd_free(int n, mpc_val_t** xs);
 
-mpc_val_t* mpcf_strfold(int n, mpc_val_t// xs);
-mpc_val_t* mpcf_maths(int n, mpc_val_t// xs);
+mpc_val_t* mpcf_strfold(int n, mpc_val_t** xs);
+mpc_val_t* mpcf_maths(int n, mpc_val_t** xs);
 
 //////////////////////////////
 // Regular Expression Parsers
@@ -247,7 +247,7 @@ typedef struct mpc_ast_t {
     char* contents;
     mpc_state_t state;
     int children_num;
-    struct mpc_ast_t// children;
+    struct mpc_ast_t** children;
 } mpc_ast_t;
 
 mpc_ast_t* mpc_ast_new(const char* tag, const char* contents);
@@ -265,9 +265,9 @@ void mpc_ast_print_to(mpc_ast_t* a, FILE* fp);
 // Warning: This function currently doesn't test for equality of the `state` member!
 int mpc_ast_eq(mpc_ast_t* a, mpc_ast_t* b);
 
-mpc_val_t* mpcf_fold_ast(int n, mpc_val_t// as);
+mpc_val_t* mpcf_fold_ast(int n, mpc_val_t** as);
 mpc_val_t* mpcf_str_ast(mpc_val_t* c);
-mpc_val_t* mpcf_state_ast(int n, mpc_val_t// xs);
+mpc_val_t* mpcf_state_ast(int n, mpc_val_t** xs);
 
 mpc_parser_t* mpca_tag(mpc_parser_t* a, const char* t);
 mpc_parser_t* mpca_add_tag(mpc_parser_t* a, const char* t);
