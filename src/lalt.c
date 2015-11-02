@@ -7,6 +7,8 @@
 int main(int argc, char** argv) {
     if (strcmp(argv[1], "repl") == 0) {
         lalt_repl();
+    } else {
+        break;
     }
 
     return 0;
