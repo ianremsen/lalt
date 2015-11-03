@@ -4,7 +4,7 @@ CFLAGS  =-std=c99
 INCS    =
 LDFLAGS =-lreadline -lcurses
 WFLAGS  =-Wall -Werror
-FILES   =lalt.c mpc.c repl.c lval.c compile.c
+FILES   =lalt.c mpc.c repl.c lval.c
 
 .PHONY: clean pedan static
 
