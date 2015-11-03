@@ -4,7 +4,6 @@
 #include "mpc.h"
 #include "repl.h"
 #include "lval.h"
-#include "compile.h"
 
 char* concat(char* s1, char* s2) {
     char* result = malloc(strlen(s1) + strlen(s2) + 1);
