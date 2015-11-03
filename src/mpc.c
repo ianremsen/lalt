@@ -1856,18 +1856,23 @@ mpc_parser_t* mpc_escape(void) {
 mpc_parser_t* mpc_digit(void) {
     return mpc_expect(mpc_oneof("0123456789"), "digit");
 }
+
 mpc_parser_t* mpc_hexdigit(void) {
     return mpc_expect(mpc_oneof("0123456789ABCDEFabcdef"), "hex digit");
 }
+
 mpc_parser_t* mpc_octdigit(void) {
     return mpc_expect(mpc_oneof("01234567"), "oct digit");
 }
+
 mpc_parser_t* mpc_digits(void) {
     return mpc_expect(mpc_many1(mpcf_strfold, mpc_digit()), "digits");
 }
+
 mpc_parser_t* mpc_hexdigits(void) {
     return mpc_expect(mpc_many1(mpcf_strfold, mpc_hexdigit()), "hex digits");
 }
+
 mpc_parser_t* mpc_octdigits(void) {
     return mpc_expect(mpc_many1(mpcf_strfold, mpc_octdigit()), "oct digits");
 }
@@ -1875,15 +1880,19 @@ mpc_parser_t* mpc_octdigits(void) {
 mpc_parser_t* mpc_lower(void) {
     return mpc_expect(mpc_oneof("abcdefghijklmnopqrstuvwxyz"), "lowercase letter");
 }
+
 mpc_parser_t* mpc_upper(void) {
     return mpc_expect(mpc_oneof("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), "uppercase letter");
 }
+
 mpc_parser_t* mpc_alpha(void) {
     return mpc_expect(mpc_oneof("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), "letter");
 }
+
 mpc_parser_t* mpc_underscore(void) {
     return mpc_expect(mpc_char('_'), "underscore");
 }
+
 mpc_parser_t* mpc_alphanum(void) {
     return mpc_expect(mpc_or(3, mpc_alpha(), mpc_digit(), mpc_underscore()), "alphanumeric");
 }
@@ -1891,19 +1900,21 @@ mpc_parser_t* mpc_alphanum(void) {
 mpc_parser_t* mpc_int(void) {
     return mpc_expect(mpc_apply(mpc_digits(), mpcf_int), "integer");
 }
+
 mpc_parser_t* mpc_hex(void) {
     return mpc_expect(mpc_apply(mpc_hexdigits(), mpcf_hex), "hexadecimal");
 }
+
 mpc_parser_t* mpc_oct(void) {
     return mpc_expect(mpc_apply(mpc_octdigits(), mpcf_oct), "octadecimal");
 }
+
 mpc_parser_t* mpc_number(void) {
     return mpc_expect(mpc_or(3, mpc_int(), mpc_hex(), mpc_oct()), "number");
 }
 
 mpc_parser_t* mpc_real(void) {
     // [+-]?\d+(\.\d+)?([eE][+-]?[0-9]+)?
-
     mpc_parser_t* p0, * p1, * p2, * p30, * p31, * p32, * p3;
 
     p0 = mpc_maybe_lift(mpc_oneof("+-"), mpcf_ctor_str);
@@ -1915,7 +1926,6 @@ mpc_parser_t* mpc_real(void) {
     p3 = mpc_maybe_lift(mpc_and(3, mpcf_strfold, p30, p31, p32, free, free), mpcf_ctor_str);
 
     return mpc_expect(mpc_and(4, mpcf_strfold, p0, p1, p2, p3, free, free, free), "real");
-
 }
 
 mpc_parser_t* mpc_float(void) {
@@ -1953,9 +1963,11 @@ mpc_parser_t* mpc_ident(void) {
 mpc_parser_t* mpc_startwith(mpc_parser_t* a) {
     return mpc_and(2, mpcf_snd, mpc_soi(), a, mpcf_dtor_null);
 }
+
 mpc_parser_t* mpc_endwith(mpc_parser_t* a, mpc_dtor_t da) {
     return mpc_and(2, mpcf_fst, a, mpc_eoi(), da);
 }
+
 mpc_parser_t* mpc_whole(mpc_parser_t* a, mpc_dtor_t da) {
     return mpc_and(3, mpcf_snd, mpc_soi(), a, mpc_eoi(), mpcf_dtor_null, da);
 }
@@ -1963,15 +1975,19 @@ mpc_parser_t* mpc_whole(mpc_parser_t* a, mpc_dtor_t da) {
 mpc_parser_t* mpc_stripl(mpc_parser_t* a) {
     return mpc_and(2, mpcf_snd, mpc_blank(), a, mpcf_dtor_null);
 }
+
 mpc_parser_t* mpc_stripr(mpc_parser_t* a) {
     return mpc_and(2, mpcf_fst, a, mpc_blank(), mpcf_dtor_null);
 }
+
 mpc_parser_t* mpc_strip(mpc_parser_t* a) {
     return mpc_and(3, mpcf_snd, mpc_blank(), a, mpc_blank(), mpcf_dtor_null, mpcf_dtor_null);
 }
+
 mpc_parser_t* mpc_tok(mpc_parser_t* a) {
     return mpc_and(2, mpcf_fst, a, mpc_blank(), mpcf_dtor_null);
 }
+
 mpc_parser_t* mpc_sym(const char* s) {
     return mpc_tok(mpc_string(s));
 }
@@ -1989,12 +2005,15 @@ mpc_parser_t* mpc_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, const c
 mpc_parser_t* mpc_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
     return mpc_between(a, ad, "(", ")");
 }
+
 mpc_parser_t* mpc_braces(mpc_parser_t* a, mpc_dtor_t ad)   {
     return mpc_between(a, ad, "<", ">");
 }
+
 mpc_parser_t* mpc_brackets(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_between(a, ad, "{", "}");
 }
+
 mpc_parser_t* mpc_squares(mpc_parser_t* a, mpc_dtor_t ad)  {
     return mpc_between(a, ad, "[", "]");
 }
@@ -2008,12 +2027,15 @@ mpc_parser_t* mpc_tok_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, con
 mpc_parser_t* mpc_tok_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
     return mpc_tok_between(a, ad, "(", ")");
 }
+
 mpc_parser_t* mpc_tok_braces(mpc_parser_t* a, mpc_dtor_t ad)   {
     return mpc_tok_between(a, ad, "<", ">");
 }
+
 mpc_parser_t* mpc_tok_brackets(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_tok_between(a, ad, "{", "}");
 }
+
 mpc_parser_t* mpc_tok_squares(mpc_parser_t* a, mpc_dtor_t ad)  {
     return mpc_tok_between(a, ad, "[", "]");
 }
@@ -2071,7 +2093,9 @@ static mpc_val_t* mpcf_re_or(int n, mpc_val_t** xs) {
     (void) n;
     if (xs[1] == NULL) {
         return xs[0];
-    }else {return mpc_or(2, xs[0], xs[1]);}
+    } else {
+        return mpc_or(2, xs[0], xs[1]);
+    }
 }
 
 static mpc_val_t* mpcf_re_and(int n, mpc_val_t** xs) {
@@ -2092,12 +2116,15 @@ static mpc_val_t* mpcf_re_repeat(int n, mpc_val_t** xs) {
     if (xs[1] == NULL) {
         return xs[0];
     }
+
     if (strcmp(xs[1], "*") == 0) {
         free(xs[1]);return mpc_many(mpcf_strfold, xs[0]);
     }
+
     if (strcmp(xs[1], "+") == 0) {
         free(xs[1]);return mpc_many1(mpcf_strfold, xs[0]);
     }
+
     if (strcmp(xs[1], "?") == 0) {
         free(xs[1]);return mpc_maybe_lift(xs[0], mpcf_ctor_str);
     }
@@ -2138,12 +2165,15 @@ static mpc_val_t* mpcf_re_escape(mpc_val_t* x) {
     if (s[0] == '.') {
         free(s);return mpc_any();
     }
+
     if (s[0] == '^') {
         free(s);return mpc_and(2, mpcf_snd, mpc_soi(), mpc_lift(mpcf_ctor_str), free);
     }
+
     if (s[0] == '$') {
         free(s);return mpc_and(2, mpcf_snd, mpc_eoi(), mpc_lift(mpcf_ctor_str), free);
     }
+
     // Regex Escape
     if (s[0] == '\\') {
         p = mpc_re_escape_char(s[1]);
@@ -2308,9 +2338,11 @@ void mpcf_dtor_null(mpc_val_t* x) {
 mpc_val_t* mpcf_ctor_null(void) {
     return NULL;
 }
+
 mpc_val_t* mpcf_ctor_str(void) {
     return calloc(1, 1);
 }
+
 mpc_val_t* mpcf_free(mpc_val_t* x) {
     free(x);return NULL;
 }
@@ -2447,14 +2479,18 @@ static mpc_val_t* mpcf_unescape_new(mpc_val_t* x, const char* input, const char*
 
             i++;
         }
+
         if (!found) {
             y = realloc(y, strlen(y) + 2);
             buff[0] = *s;buff[1] = '\0';
             strcat(y, buff);
         }
+
         if (*s == '\0') {
             break;
-        }else {s++;}
+        } else {
+            s++;
+        }
     }
 
     return y;
@@ -2519,12 +2555,15 @@ mpc_val_t* mpcf_unescape_char_raw(mpc_val_t* x) {
 mpc_val_t* mpcf_null(int n, mpc_val_t** xs) {
     (void) n;(void) xs;return NULL;
 }
+
 mpc_val_t* mpcf_fst(int n, mpc_val_t** xs) {
     (void) n;return xs[0];
 }
+
 mpc_val_t* mpcf_snd(int n, mpc_val_t** xs) {
     (void) n;return xs[1];
 }
+
 mpc_val_t* mpcf_trd(int n, mpc_val_t** xs) {
     (void) n;return xs[2];
 }
@@ -2544,9 +2583,11 @@ static mpc_val_t* mpcf_nth_free(int n, mpc_val_t** xs, int x) {
 mpc_val_t* mpcf_fst_free(int n, mpc_val_t** xs) {
     return mpcf_nth_free(n, xs, 0);
 }
+
 mpc_val_t* mpcf_snd_free(int n, mpc_val_t** xs) {
     return mpcf_nth_free(n, xs, 1);
 }
+
 mpc_val_t* mpcf_trd_free(int n, mpc_val_t** xs) {
     return mpcf_nth_free(n, xs, 2);
 }
@@ -2638,7 +2679,7 @@ static void mpc_print_unretained(mpc_parser_t* p, int force) {
 
     if (p->type == MPC_TYPE_EXPECT) {
         printf("%s", p->data.expect.m);
-        //mpc_print_unretained(p->data.expect.x, 0);
+        // mpc_print_unretained(p->data.expect.x, 0);
     }
 
     if (p->type == MPC_TYPE_ANY) {
@@ -3083,15 +3124,19 @@ mpc_parser_t* mpca_root(mpc_parser_t* a) {
 mpc_parser_t* mpca_not(mpc_parser_t* a) {
     return mpc_not(a, (mpc_dtor_t) mpc_ast_delete);
 }
+
 mpc_parser_t* mpca_maybe(mpc_parser_t* a) {
     return mpc_maybe(a);
 }
+
 mpc_parser_t* mpca_many(mpc_parser_t* a) {
     return mpc_many(mpcf_fold_ast, a);
 }
+
 mpc_parser_t* mpca_many1(mpc_parser_t* a) {
     return mpc_many1(mpcf_fold_ast, a);
 }
+
 mpc_parser_t* mpca_count(int n, mpc_parser_t* a) {
     return mpc_count(n, mpcf_fold_ast, a, (mpc_dtor_t) mpc_ast_delete);
 }
@@ -3201,7 +3246,9 @@ static mpc_val_t* mpcaf_grammar_or(int n, mpc_val_t** xs) {
     (void) n;
     if (xs[1] == NULL) {
         return xs[0];
-    }else {return mpca_or(2, xs[0], xs[1]);}
+    } else {
+        return mpca_or(2, xs[0], xs[1]);
+    }
 }
 
 static mpc_val_t* mpcaf_grammar_and(int n, mpc_val_t** xs) {
@@ -3224,15 +3271,19 @@ static mpc_val_t* mpcaf_grammar_repeat(int n, mpc_val_t** xs) {
     if (xs[1] == NULL) {
         return xs[0];
     }
+
     if (strcmp(xs[1], "*") == 0) {
         free(xs[1]);return mpca_many(xs[0]);
     }
+
     if (strcmp(xs[1], "+") == 0) {
         free(xs[1]);return mpca_many1(xs[0]);
     }
+
     if (strcmp(xs[1], "?") == 0) {
         free(xs[1]);return mpca_maybe(xs[0]);
     }
+
     if (strcmp(xs[1], "!") == 0) {
         free(xs[1]);return mpca_not(xs[0]);
     }
@@ -3300,7 +3351,7 @@ static mpc_parser_t* mpca_grammar_find_parser(char* x, mpca_grammar_st_t* st) {
         }
 
         return st->parsers[st->parsers_num - 1];
-    } else { // Case of Identifier
+    } else {
         // Search Existing Parsers
         for (i = 0; i < st->parsers_num; i++) {
             mpc_parser_t* q = st->parsers[i];
