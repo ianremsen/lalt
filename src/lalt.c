@@ -53,8 +53,8 @@ int main(int argc, char** argv) {
             buffer = fgetc(ifp);
             if (buffer != 0xffffffff) {
                 fputc(buffer, ofp);
-                printf("%x\n", buffer);
             }
+
         } while (buffer != EOF);
 
         fclose(ifp);
