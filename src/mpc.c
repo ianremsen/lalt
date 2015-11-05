@@ -169,13 +169,13 @@ char* mpc_err_string(mpc_err_t* x) {
 
     if (x->failure) {
         mpc_err_string_cat(buffer, &pos, &max,
-                           "%s: error: %s\n", x->filename, x->failure);
+            "%s: error: %s\n", x->filename, x->failure);
 
         return buffer;
     }
 
     mpc_err_string_cat(buffer, &pos, &max,
-                       "%s:%i:%i: error: expected ", x->filename, x->state.row + 1, x->state.col + 1);
+        "%s:%i:%i: error: expected ", x->filename, x->state.row + 1, x->state.col + 1);
     if (x->expected_num == 0) {
         mpc_err_string_cat(buffer, &pos, &max, "ERROR: NOTHING EXPECTED");
     }
@@ -190,8 +190,8 @@ char* mpc_err_string(mpc_err_t* x) {
         }
 
         mpc_err_string_cat(buffer, &pos, &max, "%s or %s",
-                           x->expected[x->expected_num - 2],
-                           x->expected[x->expected_num - 1]);
+            x->expected[x->expected_num - 2],
+            x->expected[x->expected_num - 1]);
     }
 
     mpc_err_string_cat(buffer, &pos, &max, " at ");
@@ -2120,8 +2120,8 @@ mpc_parser_t* mpc_total(mpc_parser_t* a, mpc_dtor_t da) {
 
 mpc_parser_t* mpc_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, const char* c) {
     return mpc_and(3, mpcf_snd_free,
-                   mpc_string(o), a, mpc_string(c),
-                   free, ad);
+        mpc_string(o), a, mpc_string(c),
+        free, ad);
 }
 
 mpc_parser_t* mpc_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
@@ -2142,8 +2142,8 @@ mpc_parser_t* mpc_squares(mpc_parser_t* a, mpc_dtor_t ad)  {
 
 mpc_parser_t* mpc_tok_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, const char* c) {
     return mpc_and(3, mpcf_snd_free,
-                   mpc_sym(o), mpc_tok(a), mpc_sym(c),
-                   free, ad);
+        mpc_sym(o), mpc_tok(a), mpc_sym(c),
+        free, ad);
 }
 
 mpc_parser_t* mpc_tok_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
@@ -2422,33 +2422,33 @@ mpc_parser_t* mpc_re(const char* re) {
     Range  = mpc_new("range");
 
     mpc_define(Regex, mpc_and(2, mpcf_re_or,
-                              Term,
-                              mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_char('|'), Regex, free)),
-                              (mpc_dtor_t) mpc_delete
-                              ));
+            Term,
+            mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_char('|'), Regex, free)),
+            (mpc_dtor_t) mpc_delete
+            ));
 
     mpc_define(Term, mpc_many(mpcf_re_and, Factor));
 
     mpc_define(Factor, mpc_and(2, mpcf_re_repeat,
-                               Base,
-                               mpc_or(5,
-                                      mpc_char('*'), mpc_char('+'), mpc_char('?'),
-                                      mpc_brackets(mpc_int(), free),
-                                      mpc_pass()),
-                               (mpc_dtor_t) mpc_delete
-                               ));
+            Base,
+            mpc_or(5,
+                mpc_char('*'), mpc_char('+'), mpc_char('?'),
+                mpc_brackets(mpc_int(), free),
+                mpc_pass()),
+            (mpc_dtor_t) mpc_delete
+            ));
 
     mpc_define(Base, mpc_or(4,
-                            mpc_parens(Regex, (mpc_dtor_t) mpc_delete),
-                            mpc_squares(Range, (mpc_dtor_t) mpc_delete),
-                            mpc_apply(mpc_escape(), mpcf_re_escape),
-                            mpc_apply(mpc_noneof(")|"), mpcf_re_escape)
-                            ));
+            mpc_parens(Regex, (mpc_dtor_t) mpc_delete),
+            mpc_squares(Range, (mpc_dtor_t) mpc_delete),
+            mpc_apply(mpc_escape(), mpcf_re_escape),
+            mpc_apply(mpc_noneof(")|"), mpcf_re_escape)
+            ));
 
     mpc_define(Range, mpc_apply(
-                   mpc_many(mpcf_strfold, mpc_or(2, mpc_escape(), mpc_noneof("]"))),
-                   mpcf_re_range
-                   ));
+            mpc_many(mpcf_strfold, mpc_or(2, mpc_escape(), mpc_noneof("]"))),
+            mpcf_re_range
+            ));
 
     RegexEnclose = mpc_whole(mpc_predictive(Regex), (mpc_dtor_t) mpc_delete);
     if (!mpc_parse("<mpc_re_compiler>", re, RegexEnclose, &r)) {
@@ -2994,9 +2994,9 @@ void mpc_print(mpc_parser_t* p) {
 ////////////////////////////////////////////////
 
 int mpc_test_fail(mpc_parser_t* p, const char* s, const void* d,
-                  int (* tester)(const void*, const void*),
-                  mpc_dtor_t destructor,
-                  void (* printer)(const void*)) {
+    int (* tester)(const void*, const void*),
+    mpc_dtor_t destructor,
+    void (* printer)(const void*)) {
     mpc_result_t r;
 
     (void) printer;
@@ -3018,9 +3018,9 @@ int mpc_test_fail(mpc_parser_t* p, const char* s, const void* d,
 }
 
 int mpc_test_pass(mpc_parser_t* p, const char* s, const void* d,
-                  int (* tester)(const void*, const void*),
-                  mpc_dtor_t destructor,
-                  void (* printer)(const void*)) {
+    int (* tester)(const void*, const void*),
+    mpc_dtor_t destructor,
+    void (* printer)(const void*)) {
     mpc_result_t r;
 
     if (mpc_parse("<test>", s, p, &r)) {
@@ -3206,9 +3206,9 @@ static void mpc_ast_print_depth(mpc_ast_t* a, int d, FILE* fp) {
 
     if (strlen(a->contents)) {
         fprintf(fp, "%s:%lu:%lu '%s'\n", a->tag,
-                (long unsigned int) (a->state.row + 1),
-                (long unsigned int) (a->state.col + 1),
-                a->contents);
+            (long unsigned int) (a->state.row + 1),
+            (long unsigned int) (a->state.col + 1),
+            a->contents);
     } else {
         fprintf(fp, "%s \n", a->tag);
     }
@@ -3602,36 +3602,36 @@ mpc_parser_t* mpca_grammar_st(const char* grammar, mpca_grammar_st_t* st) {
     Base         = mpc_new("base");
 
     mpc_define(GrammarTotal,
-               mpc_predictive(mpc_total(Grammar, mpc_soft_delete))
-               );
+        mpc_predictive(mpc_total(Grammar, mpc_soft_delete))
+        );
 
     mpc_define(Grammar, mpc_and(2, mpcaf_grammar_or,
-                                Term,
-                                mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_sym("|"), Grammar, free)),
-                                mpc_soft_delete
-                                ));
+            Term,
+            mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_sym("|"), Grammar, free)),
+            mpc_soft_delete
+            ));
 
     mpc_define(Term, mpc_many1(mpcaf_grammar_and, Factor));
 
     mpc_define(Factor, mpc_and(2, mpcaf_grammar_repeat,
-                               Base,
-                               mpc_or(6,
-                                      mpc_sym("*"),
-                                      mpc_sym("+"),
-                                      mpc_sym("?"),
-                                      mpc_sym("!"),
-                                      mpc_tok_brackets(mpc_int(), free),
-                                      mpc_pass()),
-                               mpc_soft_delete
-                               ));
+            Base,
+            mpc_or(6,
+                mpc_sym("*"),
+                mpc_sym("+"),
+                mpc_sym("?"),
+                mpc_sym("!"),
+                mpc_tok_brackets(mpc_int(), free),
+                mpc_pass()),
+            mpc_soft_delete
+            ));
 
     mpc_define(Base, mpc_or(5,
-                            mpc_apply_to(mpc_tok(mpc_string_lit()), mpcaf_grammar_string, st),
-                            mpc_apply_to(mpc_tok(mpc_char_lit()),   mpcaf_grammar_char, st),
-                            mpc_apply_to(mpc_tok(mpc_regex_lit()),  mpcaf_grammar_regex, st),
-                            mpc_apply_to(mpc_tok_braces(mpc_or(2, mpc_digits(), mpc_ident()), free), mpcaf_grammar_id, st),
-                            mpc_tok_parens(Grammar, mpc_soft_delete)
-                            ));
+            mpc_apply_to(mpc_tok(mpc_string_lit()), mpcaf_grammar_string, st),
+            mpc_apply_to(mpc_tok(mpc_char_lit()),   mpcaf_grammar_char, st),
+            mpc_apply_to(mpc_tok(mpc_regex_lit()),  mpcaf_grammar_regex, st),
+            mpc_apply_to(mpc_tok_braces(mpc_or(2, mpc_digits(), mpc_ident()), free), mpcaf_grammar_id, st),
+            mpc_tok_parens(Grammar, mpc_soft_delete)
+            ));
     if (!mpc_parse("<mpc_grammar_compiler>", grammar, GrammarTotal, &r)) {
         err_msg = mpc_err_string(r.error);
         err_out = mpc_failf("Invalid Grammar: %s", err_msg);
@@ -3753,42 +3753,42 @@ static mpc_err_t* mpca_lang_st(mpc_input_t* i, mpca_grammar_st_t* st) {
     Base    = mpc_new("base");
 
     mpc_define(Lang, mpc_apply_to(
-                   mpc_total(mpc_predictive(mpc_many(mpca_stmt_fold, Stmt)), mpca_stmt_list_delete),
-                   mpca_stmt_list_apply_to, st
-                   ));
+            mpc_total(mpc_predictive(mpc_many(mpca_stmt_fold, Stmt)), mpca_stmt_list_delete),
+            mpca_stmt_list_apply_to, st
+            ));
 
     mpc_define(Stmt, mpc_and(5, mpca_stmt_afold,
-                             mpc_tok(mpc_ident()), mpc_maybe(mpc_tok(mpc_string_lit())), mpc_sym(":"), Grammar, mpc_sym(";"),
-                             free, free, free, mpc_soft_delete
-                             ));
+            mpc_tok(mpc_ident()), mpc_maybe(mpc_tok(mpc_string_lit())), mpc_sym(":"), Grammar, mpc_sym(";"),
+            free, free, free, mpc_soft_delete
+            ));
 
     mpc_define(Grammar, mpc_and(2, mpcaf_grammar_or,
-                                Term,
-                                mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_sym("|"), Grammar, free)),
-                                mpc_soft_delete
-                                ));
+            Term,
+            mpc_maybe(mpc_and(2, mpcf_snd_free, mpc_sym("|"), Grammar, free)),
+            mpc_soft_delete
+            ));
 
     mpc_define(Term, mpc_many1(mpcaf_grammar_and, Factor));
 
     mpc_define(Factor, mpc_and(2, mpcaf_grammar_repeat,
-                               Base,
-                               mpc_or(6,
-                                      mpc_sym("*"),
-                                      mpc_sym("+"),
-                                      mpc_sym("?"),
-                                      mpc_sym("!"),
-                                      mpc_tok_brackets(mpc_int(), free),
-                                      mpc_pass()),
-                               mpc_soft_delete
-                               ));
+            Base,
+            mpc_or(6,
+                mpc_sym("*"),
+                mpc_sym("+"),
+                mpc_sym("?"),
+                mpc_sym("!"),
+                mpc_tok_brackets(mpc_int(), free),
+                mpc_pass()),
+            mpc_soft_delete
+            ));
 
     mpc_define(Base, mpc_or(5,
-                            mpc_apply_to(mpc_tok(mpc_string_lit()), mpcaf_grammar_string, st),
-                            mpc_apply_to(mpc_tok(mpc_char_lit()),   mpcaf_grammar_char, st),
-                            mpc_apply_to(mpc_tok(mpc_regex_lit()),  mpcaf_grammar_regex, st),
-                            mpc_apply_to(mpc_tok_braces(mpc_or(2, mpc_digits(), mpc_ident()), free), mpcaf_grammar_id, st),
-                            mpc_tok_parens(Grammar, mpc_soft_delete)
-                            ));
+            mpc_apply_to(mpc_tok(mpc_string_lit()), mpcaf_grammar_string, st),
+            mpc_apply_to(mpc_tok(mpc_char_lit()),   mpcaf_grammar_char, st),
+            mpc_apply_to(mpc_tok(mpc_regex_lit()),  mpcaf_grammar_regex, st),
+            mpc_apply_to(mpc_tok_braces(mpc_or(2, mpc_digits(), mpc_ident()), free), mpcaf_grammar_id, st),
+            mpc_tok_parens(Grammar, mpc_soft_delete)
+            ));
     if (!mpc_parse_input(i, Lang, &r)) {
         e = r.error;
     } else {

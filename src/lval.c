@@ -50,10 +50,12 @@ void lval_del(lval* v) {
             break;
 
         // For Err or Sym free the string data
-        case LVAL_ERR: free(v->err);
+        case LVAL_ERR:
+            free(v->err);
             break;
 
-        case LVAL_SYM: free(v->sym);
+        case LVAL_SYM:
+            free(v->sym);
             break;
 
         // If Sexpr then delete all elements inside
@@ -73,7 +75,7 @@ void lval_del(lval* v) {
 
 lval* lval_add(lval* v, lval* x) {
     v->count++;
-    v->cell               = realloc(v->cell, sizeof(lval*) * v->count);
+    v->cell = realloc(v->cell, sizeof(lval*) * v->count);
     v->cell[v->count - 1] = x;
 
     return v;
@@ -85,7 +87,7 @@ lval* lval_pop(lval* v, int i) {
 
     // Shift memory after the item at "i" over the top
     memmove(&v->cell[i], &v->cell[i + 1],
-            sizeof(lval*) * (v->count - i - 1));
+        sizeof(lval*) * (v->count - i - 1));
 
     // Decrease the count of items in the list
     v->count--;
@@ -122,16 +124,20 @@ void lval_expr_print(lval* v, char open, char close) {
 
 void lval_print(lval* v) {
     switch (v->type) {
-        case LVAL_NUM: printf("%li", v->num);
+        case LVAL_NUM:
+            printf("%li", v->num);
             break;
 
-        case LVAL_ERR: printf("Error: %s", v->err);
+        case LVAL_ERR:
+            printf("Error: %s", v->err);
             break;
 
-        case LVAL_SYM: printf("%s", v->sym);
+        case LVAL_SYM:
+            printf("%s", v->sym);
             break;
 
-        case LVAL_SEXPR: lval_expr_print(v, '(', ')');
+        case LVAL_SEXPR:
+            lval_expr_print(v, '(', ')');
             break;
     }
 }
@@ -224,7 +230,7 @@ lval* lval_eval_sexpr(lval* v) {
     }
 
     // Ensure First Element is Symbol
-    lval* f      = lval_pop(v, 0);
+    lval* f = lval_pop(v, 0);
     if (f->type != LVAL_SYM) {
         lval_del(f);
         lval_del(v);

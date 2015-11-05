@@ -286,7 +286,7 @@ mpc_parser_t* mpca_or(int n, ...);
 mpc_parser_t* mpca_and(int n, ...);
 
 enum {
-    MPCA_LANG_DEFAULT = 0,
+    MPCA_LANG_DEFAULT    = 0,
     MPCA_LANG_PREDICTIVE = 1,
     MPCA_LANG_WHITESPACE_SENSITIVE = 2
 };
@@ -304,13 +304,13 @@ mpc_err_t* mpca_lang_contents(int flags, const char* filename, ...);
 void mpc_print(mpc_parser_t* p);
 
 int mpc_test_pass(mpc_parser_t* p, const char* s, const void* d,
-                  int (* tester)(const void*, const void*),
-                  mpc_dtor_t destructor,
-                  void (* printer)(const void*));
+    int (* tester)(const void*, const void*),
+    mpc_dtor_t destructor,
+    void (* printer)(const void*));
 
 int mpc_test_fail(mpc_parser_t* p, const char* s, const void* d,
-                  int (* tester)(const void*, const void*),
-                  mpc_dtor_t destructor,
-                  void (* printer)(const void*));
+    int (* tester)(const void*, const void*),
+    mpc_dtor_t destructor,
+    void (* printer)(const void*));
 
 #endif

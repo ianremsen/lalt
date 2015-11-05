@@ -10,14 +10,13 @@ int lalt_repl() {
     mpc_parser_t* Lalt   = mpc_new("Lalt");
 
     mpca_lang(MPCA_LANG_DEFAULT,
-              "                              \
+        "                                    \
     number : /-?[0-9]+/ ;                    \
     symbol : '+' | '-' | '*' | '/' ;         \
     sexpr  : '(' <expr>* ')' ;               \
     expr   : <number> | <symbol> | <sexpr> ; \
     Lalt  : /^/ <expr>* /$/ ;                \
-    ",
-              Number, Symbol, Sexpr, Expr, Lalt);
+    ", Number, Symbol, Sexpr, Expr, Lalt);
 
     puts("Press ^C to Exit\n");
     while (1) {
