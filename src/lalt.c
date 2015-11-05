@@ -10,6 +10,7 @@ char* concat(char* s1, char* s2) {
 
     strcpy(result, s1);
     strcat(result, s2);
+
     return result;
 }
 
@@ -40,7 +41,6 @@ void copyFile(char* filename) {
         if (buffer != 0xffffffff) {
             fputc(buffer, ofp);
         }
-
     } while (buffer != EOF);
 
     fclose(ifp);
@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Error, no parameter specified.\n");
         exit(1);
     }
+
     if (strcmp(argv[1], "repl") == 0) {
         lalt_repl();
     } else if (strcmp(argv[1], "compile") == 0) {

@@ -19,7 +19,6 @@ int lalt_repl() {
     ",
               Number, Symbol, Sexpr, Expr, Lalt);
 
-    puts("Lalt v0.1.0");
     puts("Press ^C to Exit\n");
     while (1) {
         char* input = readline("Lalt> ");
@@ -39,5 +38,6 @@ int lalt_repl() {
     }
 
     mpc_cleanup(5, Number, Symbol, Sexpr, Expr, Lalt);
+
     return 0;
 }

@@ -66,11 +66,11 @@ int mpc_parse_contents(const char* filename, mpc_parser_t* p, mpc_result_t* r);
 // Function Types
 /////////////////
 typedef void (* mpc_dtor_t)(mpc_val_t*);
-typedef mpc_val_t*(* mpc_ctor_t)(void);
+typedef mpc_val_t* (* mpc_ctor_t)(void);
 
-typedef mpc_val_t*(* mpc_apply_t)(mpc_val_t*);
-typedef mpc_val_t*(* mpc_apply_to_t)(mpc_val_t*, void*);
-typedef mpc_val_t*(* mpc_fold_t)(int, mpc_val_t**);
+typedef mpc_val_t* (* mpc_apply_t)(mpc_val_t*);
+typedef mpc_val_t* (* mpc_apply_to_t)(mpc_val_t*, void*);
+typedef mpc_val_t* (* mpc_fold_t)(int, mpc_val_t**);
 
 ////////////////////
 // Building a Parser
@@ -286,8 +286,8 @@ mpc_parser_t* mpca_or(int n, ...);
 mpc_parser_t* mpca_and(int n, ...);
 
 enum {
-    MPCA_LANG_DEFAULT              = 0,
-    MPCA_LANG_PREDICTIVE           = 1,
+    MPCA_LANG_DEFAULT = 0,
+    MPCA_LANG_PREDICTIVE = 1,
     MPCA_LANG_WHITESPACE_SENSITIVE = 2
 };
 
@@ -312,7 +312,5 @@ int mpc_test_fail(mpc_parser_t* p, const char* s, const void* d,
                   int (* tester)(const void*, const void*),
                   mpc_dtor_t destructor,
                   void (* printer)(const void*));
-
-
 
 #endif

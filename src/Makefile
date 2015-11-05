@@ -1,10 +1,10 @@
-CC=gcc
-OUTPUT  =../bin/lalt.exe
-CFLAGS  =-std=c99
+CC      = gcc
+OUTPUT  = ../bin/lalt.exe
+CFLAGS  = -std=c99
 INCS    =
-LDFLAGS =-lreadline -lcurses
-WFLAGS  =-Wall -Werror
-FILES   =lalt.c mpc.c repl.c lval.c
+LDFLAGS = -lreadline -lcurses
+WFLAGS  = -Wall -Werror
+FILES   = lalt.c mpc.c repl.c lval.c
 
 .PHONY: clean pedan static
 
