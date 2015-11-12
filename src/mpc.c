@@ -2124,11 +2124,11 @@ mpc_parser_t* mpc_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, const c
         free, ad);
 }
 
-mpc_parser_t* mpc_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
+mpc_parser_t* mpc_parens(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_between(a, ad, "(", ")");
 }
 
-mpc_parser_t* mpc_braces(mpc_parser_t* a, mpc_dtor_t ad)   {
+mpc_parser_t* mpc_braces(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_between(a, ad, "<", ">");
 }
 
@@ -2136,7 +2136,7 @@ mpc_parser_t* mpc_brackets(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_between(a, ad, "{", "}");
 }
 
-mpc_parser_t* mpc_squares(mpc_parser_t* a, mpc_dtor_t ad)  {
+mpc_parser_t* mpc_squares(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_between(a, ad, "[", "]");
 }
 
@@ -2146,11 +2146,11 @@ mpc_parser_t* mpc_tok_between(mpc_parser_t* a, mpc_dtor_t ad, const char* o, con
         free, ad);
 }
 
-mpc_parser_t* mpc_tok_parens(mpc_parser_t* a, mpc_dtor_t ad)   {
+mpc_parser_t* mpc_tok_parens(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_tok_between(a, ad, "(", ")");
 }
 
-mpc_parser_t* mpc_tok_braces(mpc_parser_t* a, mpc_dtor_t ad)   {
+mpc_parser_t* mpc_tok_braces(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_tok_between(a, ad, "<", ">");
 }
 
@@ -2158,7 +2158,7 @@ mpc_parser_t* mpc_tok_brackets(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_tok_between(a, ad, "{", "}");
 }
 
-mpc_parser_t* mpc_tok_squares(mpc_parser_t* a, mpc_dtor_t ad)  {
+mpc_parser_t* mpc_tok_squares(mpc_parser_t* a, mpc_dtor_t ad) {
     return mpc_tok_between(a, ad, "[", "]");
 }
 
@@ -3903,3 +3903,4 @@ mpc_err_t* mpca_lang_contents(int flags, const char* filename, ...) {
 
     return err;
 }
+
