@@ -40,4 +40,3 @@ int lalt_repl() {
 
     return 0;
 }
-
