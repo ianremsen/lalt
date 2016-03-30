@@ -1,3 +1,5 @@
+This project is currently indefinitely shelved. It's unlikely there'll be more work by me in the future.
+--------------------------------------------------------------------------------------------------------
 # lalt
 Lalt is a lisplike to [AutoHotKey script](http://ahkscript.org) transpiler.
 
